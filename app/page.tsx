@@ -1,113 +1,126 @@
+import { get } from "@vercel/edge-config";
 import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaSnapchat, FaTelegram, FaTiktok, FaTwitter, FaYoutube } from 'react-icons/fa';
 
-export default function Home() {
+interface Data {
+  name: string;
+  avatar: string;
+  links: Link[];
+  socials: Social[];
+}
+
+interface Link {
+  href: string;
+  title: string;
+  image?: string;
+}
+
+interface Social {
+  href: string;
+  title: string;
+  image?: string;
+}
+
+function LinkCard({
+  href,
+  title,
+  image,
+}: {
+  href: string;
+  title: string;
+  image?: string;
+}) {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
+    <Link
+      href={href}
+      className="flex items-center p-1 w-full rounded-md hover:scale-105 transition-all 
+      border border-gray-300 mb-3 bg-gray-100 max-w-3xl"
+    >
+      <div className="flex text-center w-full">
+        <div className="w-10 h-10">
+          {image && (
             <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+              className="rounded-sm"
+              alt={title}
+              src={image}
+              width={40}
+              height={40}
             />
-          </a>
+          )}
         </div>
+        <h2
+          className="flex justify-center items-center 
+        font-semibold w-full text-gray-700 -ml-10"
+        >
+          {title}
+        </h2>
       </div>
+    </Link>
+  );
+}
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
+export default async function Home() {
+  const data = await get<Data>("config");
+  if (!data) {
+    redirect("https://blog.shangen.org/");
+  }
+  return (
+    <div className="flex flex-col justify-between min-h-screen w-full">
+      <main
+        className="flex items-center flex-col mx-auto w-full justify-center pt-16 h-full
+    px-8"
+      >
         <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          className="rounded-full"
+          alt={data.name}
+          src={data.avatar}
+          width={96}
+          height={96}
         />
-      </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <h1 className="font-bold mt-4 text-xl mb-8 text-white">{data.name}</h1>
+        {data.links.map((link) => (
+          <LinkCard key={link.href} {...link} />
+        ))}
+        <div className="flex items-center gap-4 mt-8 text-white">
+          {data.socials.map((social) => {
+            if (social.href.includes("twitter")) {
+              return <Link key={social.href} href={social.href}><FaTwitter key={social.href} /></Link>;
+            }
+            if (social.href.includes("github")) {
+              return <Link key={social.href} href={social.href}><FaGithub key={social.href} /></Link>;
+            }
+            if (social.href.includes("facebook")) {
+              return <Link key={social.href} href={social.href}><FaFacebook key={social.href} /></Link>;
+            }
+            if (social.href.includes("instagram")) {
+              return <Link key={social.href} href={social.href}><FaInstagram key={social.href} /></Link>;
+            }
+            if (social.href.includes("linkedin")) {
+              return <Link key={social.href} href={social.href}><FaLinkedin key={social.href} /></Link>;
+            }
+            if (social.href.includes("youtube")) {
+              return <Link key={social.href} href={social.href}><FaYoutube key={social.href} /></Link>;
+            }
+            if (social.href.includes("t.me")) {
+              return <Link key={social.href} href={social.href}><FaTelegram key={social.href} /></Link>;
+            }
+            if (social.href.includes("snapchat")) {
+              return <Link key={social.href} href={social.href}><FaSnapchat key={social.href} /></Link>;
+            }
+            if (social.href.includes("tiktok")) {
+              return <Link key={social.href} href={social.href}><FaTiktok key={social.href} /></Link>;
+            }
+          })}
+        </div>
+      </main>
+      <footer className="p-4">
+        <p className="text-slate-500 text-center">
+          Made with ❤️ by Shang En. <Link href="https://github.com/12458/links">Source Code.</Link>
+        </p>
+      </footer>
+    </div>
   );
 }
