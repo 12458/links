@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
+import { PHProvider } from './providers'
+
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -19,14 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "bg-background font-sans antialiased bg-black",
-          fontSans.variable
-        )}
-      >
-        {children}
-      </body>
+      <PHProvider>
+        <body
+          className={cn(
+            "bg-background font-sans antialiased bg-black",
+            fontSans.variable
+          )}
+        >
+          {children}
+        </body>
+      </PHProvider>
     </html>
   );
 }
