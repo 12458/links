@@ -37,6 +37,7 @@ function LinkCard({
       href={href}
       className="flex items-center p-1 w-full rounded-md hover:scale-105 transition-all 
       border border-gray-300 mb-3 bg-gray-100 max-w-3xl"
+      target="_blank"
     >
       <div className="flex text-center w-full">
         <div className="w-10 h-10">
@@ -64,7 +65,7 @@ function LinkCard({
 export default async function Home() {
   const data = await get<Data>("config");
   if (!data) {
-    redirect("https://blog.shangen.org/");
+    redirect("https://about.shangen.org/");
   }
   return (
     <div className="flex flex-col justify-between min-h-screen w-full">
@@ -87,38 +88,38 @@ export default async function Home() {
         <div className="flex items-center gap-4 mt-8 text-white">
           {data.socials.map((social) => {
             if (social.href.includes("twitter")) {
-              return <Link key={social.href} href={social.href}><FaTwitter key={social.href} /></Link>;
+              return <Link key={social.href} href={social.href}><FaTwitter key={social.href} target="_blank" /></Link>;
             }
             if (social.href.includes("github")) {
-              return <Link key={social.href} href={social.href}><FaGithub key={social.href} /></Link>;
+              return <Link key={social.href} href={social.href}><FaGithub key={social.href} target="_blank" /></Link>;
             }
             if (social.href.includes("facebook")) {
-              return <Link key={social.href} href={social.href}><FaFacebook key={social.href} /></Link>;
+              return <Link key={social.href} href={social.href}><FaFacebook key={social.href} target="_blank" /></Link>;
             }
             if (social.href.includes("instagram")) {
-              return <Link key={social.href} href={social.href}><FaInstagram key={social.href} /></Link>;
+              return <Link key={social.href} href={social.href}><FaInstagram key={social.href} target="_blank" /></Link>;
             }
             if (social.href.includes("linkedin")) {
-              return <Link key={social.href} href={social.href}><FaLinkedin key={social.href} /></Link>;
+              return <Link key={social.href} href={social.href}><FaLinkedin key={social.href} target="_blank" /></Link>;
             }
             if (social.href.includes("youtube")) {
-              return <Link key={social.href} href={social.href}><FaYoutube key={social.href} /></Link>;
+              return <Link key={social.href} href={social.href}><FaYoutube key={social.href} target="_blank" /></Link>;
             }
             if (social.href.includes("t.me")) {
-              return <Link key={social.href} href={social.href}><FaTelegram key={social.href} /></Link>;
+              return <Link key={social.href} href={social.href}><FaTelegram key={social.href} target="_blank" /></Link>;
             }
             if (social.href.includes("snapchat")) {
-              return <Link key={social.href} href={social.href}><FaSnapchat key={social.href} /></Link>;
+              return <Link key={social.href} href={social.href}><FaSnapchat key={social.href} target="_blank" /></Link>;
             }
             if (social.href.includes("tiktok")) {
-              return <Link key={social.href} href={social.href}><FaTiktok key={social.href} /></Link>;
+              return <Link key={social.href} href={social.href}><FaTiktok key={social.href} target="_blank" /></Link>;
             }
           })}
         </div>
       </main>
       <footer className="p-4">
         <p className="text-slate-500 text-center">
-          Made with ❤️ by Shang En. <Link href="https://github.com/12458/links">Source Code.</Link>
+          Made with ❤️ by Shang En. <Link href="https://github.com/12458/links" target="_blank">Source Code.</Link>
         </p>
       </footer>
     </div>
