@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { PHProvider } from './providers'
+import dynamic from 'next/dynamic'
 
 
 const fontSans = FontSans({
@@ -13,6 +14,10 @@ export const metadata: Metadata = {
   title: "Shang En's Links",
   description: "Find all of Shang En's links here.",
 };
+
+const PostHogPageView = dynamic(() => import('./PostHogPageView'), {
+  ssr: false,
+})
 
 export default function RootLayout({
   children,
